@@ -9,12 +9,15 @@ until full realese.
 <br>
 <br>
 
-<font size="5">
+<font size="12">
 I WON'T BOTHER MAKING THIS IN WINDOWS
 </font>
 
+requires: <br>
+colorama - <color> colors
+
+<br>
 stages: 
-* 0.(some number) - version 0 (before anything)
 * a(some version) - alpha
 * b(some version) - beta
 * (some version) - full realese
@@ -22,5 +25,6 @@ stages:
 - [x] make basic terminal
 - [x] VERY basic commands like "HELP" or "VER"
 - [x] something like bashrc in bash
-- [ ] publish
-- [ ] take apps from sandbox /bin dir
+- [x] publish
+- [x] take apps from sandbox /bin dir
+- [ ] can run normal python apps (for example my ctk_editor)

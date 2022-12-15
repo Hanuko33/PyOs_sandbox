@@ -1,31 +1,56 @@
 #!/usr/bin/python3
-from os import system
+from os import system, listdir
+from colorama import Fore, Style
 
-VER = "a0.1"
+VER = "a0.2"
 
-# Username hardcoded, if start_rc would get broken
+# Username hardcoded, if start_rc or/and repeat_rc would get broken
 UserName = "@"
+Name = "@"
+cur_dir = "sandbox"
+visible_dir = cur_dir.replace("sandbox", "/")
 
 f = open("start_rc.py")
 exec(f.read())
 del f
 
 while True:
-    command = input(UserName + "# ")
-    command = command.lower()
+    f = open("repeat_rc.py")
+    exec(f.read())
+    del f
 
-    if command == "exit":
+    binaries = listdir("sandbox/bin")
+
+    command = input(UserName + " #" + Style.RESET_ALL + " ")
+    command = command.lower()
+    tmp = command.split("-")
+    for binary in binaries:
+        binary = binary.replace(".py", "")
+        before, sep, after = binary.partition("-")
+        binary = before
+        del before, sep, after
+
+        before, sep, after = command.partition("-")
+        command = before
+        del before, sep, after
+
+        command = command.replace(" ", "")
+        binary = binary.replace(" ", "")
+
+        if command == binary:
+            f = open("sandbox/bin/"+binary+".py")
+            exec(f.read())
+            del f
+            command = ""
+    if command == "":
+        pass
+    elif command == "py":
+        system("./sandbox/bin/pycharm.sh")
+    elif command == "exit":
         exit()
-    if command == "clear":
+    elif command == "clear":
         system('clear')
-    if command == "ver":
+    elif command == "ver":
         print(VER)
-    if command == "help":
-        print("""
-exit - exit
-clear - clear
-ver - show VER
-help - show this list
-""")
     else:
-        print(command + " : command not found")
+        print(command + " - command not found")
